@@ -1,15 +1,21 @@
 {
   "files": {
     "main.css": "/sar-urgency-app/static/css/main.6812b1a6.css",
-    "main.js": "/sar-urgency-app/static/js/main.d1b82eb7.js",
-    "static/js/453.2fc0fbfc.chunk.js": "/sar-urgency-app/static/js/453.2fc0fbfc.chunk.js",
+    "main.js": "/sar-urgency-app/static/js/main.7a156e5f.js",
+    "static/js/239.b1db46a4.chunk.js": "/sar-urgency-app/static/js/239.b1db46a4.chunk.js",
+    "static/js/977.5edee276.chunk.js": "/sar-urgency-app/static/js/977.5edee276.chunk.js",
+    "static/js/455.c323a8c0.chunk.js": "/sar-urgency-app/static/js/455.c323a8c0.chunk.js",
+    "static/js/453.b53277de.chunk.js": "/sar-urgency-app/static/js/453.b53277de.chunk.js",
     "index.html": "/sar-urgency-app/index.html",
     "main.6812b1a6.css.map": "/sar-urgency-app/static/css/main.6812b1a6.css.map",
-    "main.d1b82eb7.js.map": "/sar-urgency-app/static/js/main.d1b82eb7.js.map",
-    "453.2fc0fbfc.chunk.js.map": "/sar-urgency-app/static/js/453.2fc0fbfc.chunk.js.map"
+    "main.7a156e5f.js.map": "/sar-urgency-app/static/js/main.7a156e5f.js.map",
+    "239.b1db46a4.chunk.js.map": "/sar-urgency-app/static/js/239.b1db46a4.chunk.js.map",
+    "977.5edee276.chunk.js.map": "/sar-urgency-app/static/js/977.5edee276.chunk.js.map",
+    "455.c323a8c0.chunk.js.map": "/sar-urgency-app/static/js/455.c323a8c0.chunk.js.map",
+    "453.b53277de.chunk.js.map": "/sar-urgency-app/static/js/453.b53277de.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6812b1a6.css",
-    "static/js/main.d1b82eb7.js"
+    "static/js/main.7a156e5f.js"
   ]
 }
