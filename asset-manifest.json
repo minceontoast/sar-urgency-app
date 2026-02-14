@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sar-urgency-app/static/css/main.6812b1a6.css",
-    "main.js": "/sar-urgency-app/static/js/main.c49af5e5.js",
+    "main.js": "/sar-urgency-app/static/js/main.380a0c8c.js",
     "static/js/453.2fc0fbfc.chunk.js": "/sar-urgency-app/static/js/453.2fc0fbfc.chunk.js",
     "index.html": "/sar-urgency-app/index.html",
     "main.6812b1a6.css.map": "/sar-urgency-app/static/css/main.6812b1a6.css.map",
-    "main.c49af5e5.js.map": "/sar-urgency-app/static/js/main.c49af5e5.js.map",
+    "main.380a0c8c.js.map": "/sar-urgency-app/static/js/main.380a0c8c.js.map",
     "453.2fc0fbfc.chunk.js.map": "/sar-urgency-app/static/js/453.2fc0fbfc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6812b1a6.css",
-    "static/js/main.c49af5e5.js"
+    "static/js/main.380a0c8c.js"
   ]
 }
