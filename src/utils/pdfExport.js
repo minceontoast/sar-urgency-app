@@ -1,5 +1,5 @@
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import { autoTable } from 'jspdf-autotable';
 import { FACTORS } from '../data/factors';
 import { calculateResult, URGENCY_LEVELS } from './scoring';
 
@@ -137,7 +137,7 @@ export function generatePDF({ selections, operationName, policeRef, date }) {
     },
   ]);
 
-  doc.autoTable({
+  const table = autoTable(doc, {
     startY: y,
     margin: { left: margin, right: margin },
     head: [['Category', 'Factor', 'Selection', 'Score']],
@@ -168,7 +168,7 @@ export function generatePDF({ selections, operationName, policeRef, date }) {
     },
   });
 
-  y = doc.lastAutoTable.finalY + 12;
+  y = table.finalY + 12;
 
   // === URGENCY RESULT BOX ===
   const urgency = URGENCY_LEVELS[result.level];
