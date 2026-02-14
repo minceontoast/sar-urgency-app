@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FACTORS } from '../data/factors';
+import { FACTORS, SUITS } from '../data/factors';
 import { calculateResult, URGENCY_LEVELS } from '../utils/scoring';
 
 const FACTOR_COLORS = [
@@ -391,6 +391,122 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
             </div>
           </div>
         )}
+
+        {/* Contributing factors breakdown */}
+        {(() => {
+          const factorDetails = FACTORS.map((f, i) => ({
+            factor: f,
+            value: selections[f.id] ?? 1,
+            color: FACTOR_COLORS[i],
+            suit: SUITS[f.suit],
+            option: f.options.find((o) => o.value === (selections[f.id] ?? 1)),
+          }));
+
+          const critical = factorDetails.filter((d) => d.value === 1);
+          const concerning = factorDetails.filter((d) => d.value === 2);
+          const favourable = factorDetails.filter((d) => d.value >= 3);
+
+          const groups = [
+            { label: 'Critical', items: critical, color: '#d32f2f', bg: '#ffebee' },
+            { label: 'Concerning', items: concerning, color: '#e65100', bg: '#fff3e0' },
+            { label: 'Favourable', items: favourable, color: '#2e7d32', bg: '#e8f5e9' },
+          ];
+
+          return (
+            <div
+              style={{
+                background: '#fff',
+                borderRadius: 12,
+                padding: 16,
+                marginBottom: 20,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              }}
+            >
+              <div style={{ fontWeight: 700, fontSize: 15, color: '#333', marginBottom: 12 }}>
+                Contributing Factors
+              </div>
+              {groups.map(
+                (group) =>
+                  group.items.length > 0 && (
+                    <div key={group.label} style={{ marginBottom: 12 }}>
+                      <div
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: group.color,
+                          textTransform: 'uppercase',
+                          letterSpacing: 0.5,
+                          marginBottom: 6,
+                        }}
+                      >
+                        {group.label} ({group.items.length})
+                      </div>
+                      {group.items.map((d) => (
+                        <div
+                          key={d.factor.id}
+                          onClick={() =>
+                            setEditingId(editingId === d.factor.id ? null : d.factor.id)
+                          }
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 10,
+                            padding: '8px 10px',
+                            background: group.bg,
+                            borderRadius: 8,
+                            marginBottom: 4,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <span
+                            style={{
+                              fontSize: 11,
+                              color: '#999',
+                              minWidth: 16,
+                            }}
+                          >
+                            {d.suit.symbol}
+                          </span>
+                          <span
+                            style={{
+                              flex: 1,
+                              fontSize: 13,
+                              fontWeight: 600,
+                              color: '#333',
+                            }}
+                          >
+                            {d.factor.name}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: 12,
+                              color: '#666',
+                              maxWidth: 160,
+                              textAlign: 'right',
+                              lineHeight: 1.3,
+                            }}
+                          >
+                            {d.option?.label}
+                          </span>
+                          <span
+                            style={{
+                              fontWeight: 800,
+                              fontSize: 14,
+                              color: group.color,
+                              minWidth: 18,
+                              textAlign: 'center',
+                            }}
+                          >
+                            {d.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )
+              )}
+            </div>
+          );
+        })()}
 
         {/* Actions */}
         <div
