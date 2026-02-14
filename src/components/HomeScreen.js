@@ -42,26 +42,36 @@ export default function HomeScreen({ onStart, onRandomise }) {
         appropriate search response level.
       </p>
 
-      <select
-        style={{
-          padding: '10px 16px',
-          fontSize: 15,
-          fontWeight: 600,
-          background: 'rgba(255,255,255,0.15)',
-          color: '#fff',
-          border: '2px solid rgba(255,255,255,0.3)',
-          borderRadius: 10,
-          marginBottom: 20,
-          cursor: 'pointer',
-          appearance: 'none',
-          WebkitAppearance: 'none',
-          textAlign: 'center',
-          minWidth: 200,
-        }}
-        defaultValue="nz"
-      >
-        <option value="nz" style={{ color: '#222' }}>New Zealand</option>
-      </select>
+      <div style={{ marginBottom: 20, textAlign: 'center' }}>
+        <div
+          style={{
+            fontSize: 12,
+            fontWeight: 600,
+            color: 'rgba(255,255,255,0.5)',
+            marginBottom: 6,
+            textTransform: 'uppercase',
+            letterSpacing: 1,
+          }}
+        >
+          Select Country
+        </div>
+        <select
+          style={{
+            padding: '10px 32px 10px 16px',
+            fontSize: 15,
+            fontWeight: 600,
+            background: 'rgba(255,255,255,0.15)',
+            color: '#fff',
+            border: '2px solid rgba(255,255,255,0.3)',
+            borderRadius: 10,
+            cursor: 'pointer',
+            minWidth: 200,
+          }}
+          defaultValue="nz"
+        >
+          <option value="nz" style={{ color: '#222' }}>New Zealand</option>
+        </select>
+      </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
         <button
