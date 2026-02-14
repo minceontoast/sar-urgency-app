@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FACTORS } from '../data/factors';
 import { calculateResult, URGENCY_LEVELS } from '../utils/scoring';
+import ExportModal from './ExportModal';
 
 const FACTOR_COLORS = [
   '#e53935', // 1  Age - red
@@ -219,6 +220,7 @@ function EditPanel({ factor, value, color, onSelect, onClose }) {
 
 export default function ResultScreen({ selections, onSelect, onReset, onBack }) {
   const [editingId, setEditingId] = useState(null);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   const result = calculateResult(selections, FACTORS);
   const urgency = URGENCY_LEVELS[result.level];
@@ -521,8 +523,27 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
           >
             Start Over
           </button>
+          <button
+            onClick={() => setShowExportModal(true)}
+            style={{
+              padding: '14px 32px',
+              borderRadius: 10,
+              border: 'none',
+              background: '#1565c0',
+              color: '#fff',
+              fontSize: 15,
+              cursor: 'pointer',
+              fontWeight: 600,
+            }}
+          >
+            Export PDF
+          </button>
         </div>
       </div>
+
+      {showExportModal && (
+        <ExportModal selections={selections} onClose={() => setShowExportModal(false)} />
+      )}
     </div>
   );
 }
