@@ -1,12 +1,12 @@
 export const SUITS = {
-  hearts: { name: 'Hearts', symbol: '♥', color: '#e53935', label: 'Person' },
-  spades: { name: 'Spades', symbol: '♠', color: '#212121', label: 'Preparedness' },
-  diamonds: { name: 'Diamonds', symbol: '♦', color: '#1565c0', label: 'Environment' },
-  clubs: { name: 'Clubs', symbol: '♣', color: '#2e7d32', label: 'Situation' },
+  hearts: { name: 'Hearts', symbol: '👤', color: '#d84315', label: 'Person' },
+  spades: { name: 'Spades', symbol: '🎒', color: '#6d4c41', label: 'Preparedness' },
+  diamonds: { name: 'Diamonds', symbol: '⛰️', color: '#00796b', label: 'Environment' },
+  clubs: { name: 'Clubs', symbol: '🧭', color: '#37474f', label: 'Situation' },
 };
 
 export const FACTORS = [
-  // Hearts - Person (3 cards)
+  // Hearts - Person (4 cards)
   {
     id: 1,
     suit: 'hearts',
@@ -111,7 +111,19 @@ export const FACTORS = [
     ],
   },
 
-  // Clubs - Situation (2 cards)
+  {
+    id: 11,
+    suit: 'hearts',
+    name: 'Reliability / Punctuality',
+    options: [
+      { label: 'Very reliable and punctual', value: 1 },
+      { label: 'Usually reliable', value: 2 },
+      { label: 'Questionable reliability', value: 3 },
+      { label: 'Completely unreliable', value: 4 },
+    ],
+  },
+
+  // Clubs - Situation (1 card)
   {
     id: 10,
     suit: 'clubs',
@@ -121,17 +133,6 @@ export const FACTORS = [
       { label: 'Group - separated / scattered', value: 1 },
       { label: 'Group - together, no leader', value: 2 },
       { label: 'Group - together with leader', value: 3 },
-    ],
-  },
-  {
-    id: 11,
-    suit: 'clubs',
-    name: 'Reliability / Punctuality',
-    options: [
-      { label: 'Very reliable and punctual', value: 1 },
-      { label: 'Usually reliable', value: 2 },
-      { label: 'Questionable reliability', value: 3 },
-      { label: 'Completely unreliable', value: 4 },
     ],
   },
 ];

@@ -3,13 +3,6 @@ import { autoTable } from 'jspdf-autotable';
 import { FACTORS } from '../data/factors';
 import { calculateResult, URGENCY_LEVELS } from './scoring';
 
-const SUIT_LABELS = {
-  hearts: 'Person',
-  spades: 'Preparedness',
-  diamonds: 'Environment',
-  clubs: 'Situation',
-};
-
 function hexToRgb(hex) {
   const n = parseInt(hex.replace('#', ''), 16);
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
@@ -45,45 +38,45 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
   const pageWidth = 210;
   const margin = 15;
   const contentWidth = pageWidth - margin * 2;
-  let y = 15;
+  let y = 12;
 
   // === HEADER ===
-  doc.setFontSize(20);
+  doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
   doc.text('Search Urgency Assessment', pageWidth / 2, y, { align: 'center' });
-  y += 8;
+  y += 6;
 
-  doc.setFontSize(11);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(100);
   doc.text('Land - Searchency App Export', pageWidth / 2, y, { align: 'center' });
   doc.setTextColor(0);
-  y += 5;
+  y += 4;
 
   // Horizontal rule
   doc.setDrawColor(180);
   doc.setLineWidth(0.5);
   doc.line(margin, y, pageWidth - margin, y);
-  y += 10;
+  y += 6;
 
   // === OPERATION DETAILS ===
   const details = [
     ['Operation Name', operationName || '-'],
-    ['Police Reference', policeRef || '-'],
+    ['Job Reference', policeRef || '-'],
     ['Name', userName || '-'],
     ['Date', date],
   ];
 
-  doc.setFontSize(10);
+  doc.setFontSize(8);
   details.forEach(([label, value]) => {
     doc.setFont('helvetica', 'bold');
     doc.text(`${label}:`, margin, y);
     doc.setFont('helvetica', 'normal');
-    doc.text(value, margin + 40, y);
-    y += 6;
+    doc.text(value, margin + 35, y);
+    y += 5;
   });
 
-  y += 8;
+  y += 4;
 
   // === SCORING TABLE ===
   const tableBody = [];
@@ -95,20 +88,19 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
     const isEmergency = value === 1;
 
     tableBody.push([
-      { content: SUIT_LABELS[factor.suit], styles: { fontSize: 9, textColor: [100, 100, 100] } },
-      { content: factor.name, styles: { fontStyle: 'bold', fontSize: 9 } },
-      { content: selectionLabel, styles: { fontSize: 9 } },
+      { content: factor.name, styles: { fontStyle: 'bold', fontSize: 7 } },
+      { content: selectionLabel, styles: { fontSize: 7 } },
       {
         content: String(value),
         styles: {
           halign: 'center',
           fontStyle: 'bold',
-          fontSize: 10,
+          fontSize: 8,
           textColor: isEmergency ? [211, 47, 47] : [0, 0, 0],
           fillColor: isEmergency ? [255, 235, 238] : null,
         },
       },
-      { content: '', styles: { fontSize: 9 } },
+      { content: '', styles: { fontSize: 7 } },
     ]);
   });
 
@@ -117,10 +109,10 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
   tableBody.push([
     {
       content: 'TOTAL SCORE',
-      colSpan: 4,
+      colSpan: 3,
       styles: {
         fontStyle: 'bold',
-        fontSize: 11,
+        fontSize: 9,
         halign: 'right',
         fillColor: [240, 240, 240],
       },
@@ -130,7 +122,7 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
       styles: {
         halign: 'center',
         fontStyle: 'bold',
-        fontSize: 12,
+        fontSize: 10,
         fillColor: [240, 240, 240],
       },
     },
@@ -139,26 +131,25 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
   autoTable(doc, {
     startY: y,
     margin: { left: margin, right: margin },
-    head: [['Category', 'Factor', 'Selection', 'Score', 'Comments']],
+    head: [['Factor', 'Selection', 'Score', 'Comments']],
     body: tableBody,
     headStyles: {
       fillColor: [50, 50, 50],
       textColor: [255, 255, 255],
       fontStyle: 'bold',
-      fontSize: 10,
+      fontSize: 8,
     },
     styles: {
-      cellPadding: 3,
-      fontSize: 9,
+      cellPadding: 2,
+      fontSize: 7,
       lineColor: [220, 220, 220],
       lineWidth: 0.25,
     },
     columnStyles: {
-      0: { cellWidth: 25 },
-      1: { cellWidth: 40 },
-      2: { cellWidth: 'auto' },
-      3: { cellWidth: 16, halign: 'center' },
-      4: { cellWidth: 45 },
+      0: { cellWidth: 40 },
+      1: { cellWidth: 'auto' },
+      2: { cellWidth: 16, halign: 'center' },
+      3: { cellWidth: 45 },
     },
     didParseCell: (data) => {
       // Remove default fill for non-header rows (let per-cell styles take precedence)
@@ -168,19 +159,13 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
     },
   });
 
-  y = doc.lastAutoTable.finalY + 12;
+  y = doc.lastAutoTable.finalY + 8;
 
   // === URGENCY RESULT BOX ===
   const urgency = URGENCY_LEVELS[result.level];
   const urgencyRgb = hexToRgb(urgency.color);
   const urgencyBgRgb = hexToRgb(urgency.bg);
-  const boxHeight = result.hasEmergencyFlag ? 48 : 38;
-
-  // Check if we need a new page
-  if (y + boxHeight > 275) {
-    doc.addPage();
-    y = 15;
-  }
+  const boxHeight = result.hasEmergencyFlag ? 36 : 28;
 
   // Background box
   doc.setFillColor(...urgencyBgRgb);
@@ -189,37 +174,37 @@ export async function generatePDF({ selections, operationName, policeRef, userNa
   doc.roundedRect(margin, y, contentWidth, boxHeight, 3, 3, 'FD');
 
   // Urgency level label
-  doc.setFontSize(16);
+  doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(...urgencyRgb);
-  doc.text(urgency.label, pageWidth / 2, y + 10, { align: 'center' });
+  doc.text(urgency.label, pageWidth / 2, y + 8, { align: 'center' });
 
   // Score and range
-  doc.setFontSize(11);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Score: ${result.total} (Range: ${urgency.range})`, pageWidth / 2, y + 18, {
+  doc.text(`Score: ${result.total} (Range: ${urgency.range})`, pageWidth / 2, y + 14, {
     align: 'center',
   });
 
   // Description
-  doc.setFontSize(10);
+  doc.setFontSize(8);
   doc.setTextColor(80);
-  doc.text(urgency.description, pageWidth / 2, y + 26, { align: 'center' });
+  doc.text(urgency.description, pageWidth / 2, y + 20, { align: 'center' });
 
   // Emergency flag warning
   if (result.hasEmergencyFlag) {
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(211, 47, 47);
     doc.text(
       'EMERGENCY FLAG: Factor(s) scored as 1 - consider Emergency Response.',
       pageWidth / 2,
-      y + 36,
+      y + 28,
       { align: 'center' }
     );
   }
 
-  y += boxHeight + 8;
+  y += boxHeight + 6;
   doc.setTextColor(0);
 
   // === FOOTER ===

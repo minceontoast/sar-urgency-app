@@ -12,10 +12,11 @@ function formatDate() {
 export default function ExportModal({ selections, onClose }) {
   const [operationName, setOperationName] = useState('');
   const [policeRef, setPoliceRef] = useState('');
+  const [userName, setUserName] = useState('');
   const date = formatDate();
 
-  const handleExport = () => {
-    generatePDF({ selections, operationName, policeRef, date });
+  const handleExport = async () => {
+    await generatePDF({ selections, operationName, policeRef, userName, date });
     onClose();
   };
 
@@ -71,12 +72,33 @@ export default function ExportModal({ selections, onClose }) {
 
         <label style={{ display: 'block', marginBottom: 14 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#555', marginBottom: 4 }}>
-            Police Reference
+            Job Reference
           </div>
           <input
             type="text"
             value={policeRef}
             onChange={(e) => setPoliceRef(e.target.value)}
+            placeholder="Optional"
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              border: '1.5px solid #ddd',
+              borderRadius: 8,
+              fontSize: 15,
+              boxSizing: 'border-box',
+              outline: 'none',
+            }}
+          />
+        </label>
+
+        <label style={{ display: 'block', marginBottom: 14 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#555', marginBottom: 4 }}>
+            Name
+          </div>
+          <input
+            type="text"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             placeholder="Optional"
             style={{
               width: '100%',

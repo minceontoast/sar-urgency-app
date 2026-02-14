@@ -7,9 +7,7 @@ export default function SuitIcon({ suit, size = 24 }) {
     <span
       style={{
         fontSize: size,
-        color,
         lineHeight: 1,
-        fontFamily: 'serif',
       }}
     >
       {symbol}
