@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FACTORS, SUITS } from '../data/factors';
+import { FACTORS } from '../data/factors';
 import { calculateResult, URGENCY_LEVELS } from '../utils/scoring';
 
 const FACTOR_COLORS = [
@@ -398,7 +398,6 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
             factor: f,
             value: selections[f.id] ?? 1,
             color: FACTOR_COLORS[i],
-            suit: SUITS[f.suit],
             option: f.options.find((o) => o.value === (selections[f.id] ?? 1)),
           }));
 
@@ -458,15 +457,6 @@ export default function ResultScreen({ selections, onSelect, onReset, onBack }) 
                             cursor: 'pointer',
                           }}
                         >
-                          <span
-                            style={{
-                              fontSize: 11,
-                              color: '#999',
-                              minWidth: 16,
-                            }}
-                          >
-                            {d.suit.symbol}
-                          </span>
                           <span
                             style={{
                               flex: 1,
